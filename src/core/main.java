@@ -2,8 +2,6 @@ package core;
 
 import ai.BFS;
 import ai.DFS;
-import ai.IDS;
-
 import model.Board;
 import model.Node;
 
@@ -39,8 +37,8 @@ public class main {
         Hashtable<String, Boolean> initHash = new Hashtable<>();
         Node start = new Node(gameBoard, null, NONE);
 //        BFS bfs = new BFS();
-        IDS dfs = new IDS();
-        dfs.IDFS(start);
+        DFS dfs = new DFS();
+        dfs.search(start);
 //        BFS bfs = new BFS();
 //        bfs.search(start);
     }
