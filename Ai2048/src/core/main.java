@@ -4,6 +4,7 @@ import ai.BFS;
 import ai.DFS;
 import ai.IDS;
 
+import ai.UCS;
 import model.Board;
 import model.Node;
 
@@ -38,8 +39,10 @@ public class main {
 
         Hashtable<String, Boolean> initHash = new Hashtable<>();
         Node start = new Node(gameBoard, null, NONE);
-//        BFS bfs = new BFS();
+
 //        BFS bfs = new BFS();
 //        bfs.search(start);
+        UCS ucs = new UCS();
+        ucs.search(start);
     }
 }
