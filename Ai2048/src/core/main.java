@@ -39,8 +39,6 @@ public class main {
         Hashtable<String, Boolean> initHash = new Hashtable<>();
         Node start = new Node(gameBoard, null, NONE);
 //        BFS bfs = new BFS();
-        IDS dfs = new IDS();
-        dfs.IDFS(start);
 //        BFS bfs = new BFS();
 //        bfs.search(start);
     }
