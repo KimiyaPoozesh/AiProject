@@ -2,6 +2,7 @@ package core;
 
 import ai.BFS;
 import ai.DFS;
+import ai.UCS;
 import model.Board;
 import model.Node;
 
@@ -36,10 +37,10 @@ public class main {
 
         Hashtable<String, Boolean> initHash = new Hashtable<>();
         Node start = new Node(gameBoard, null, NONE);
-//        BFS bfs = new BFS();
-        DFS dfs = new DFS();
-        dfs.search(start);
-//        BFS bfs = new BFS();
-//        bfs.search(start);
+        BFS bfs = new BFS();
+//        UCS dfs = new UCS();
+//        dfs.search(start);
+
+        bfs.search(start);
     }
 }

@@ -3,13 +3,14 @@ package model;
 import core.Constants;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
-public class Node {
+public class Node  implements Comparable<Node> {
     Board board;
     Node parent;
     Movement previousMovement;
 
-    public Node(Board board, Node parent, Movement previousMovement) {
+    public Node (Board board, Node parent, Movement previousMovement) {
         this.parent = parent;
         this.board = board;
         this.previousMovement = previousMovement;
@@ -40,8 +41,24 @@ public class Node {
     }
 
     public int pathCost() {
-        //todo
-        return 1;
+        int cost = 0;
+        switch (previousMovement) {
+            case LEFT:
+                cost = 1;
+                break;
+            case RIGHT:
+                cost = 3;
+                break;
+            case DOWN:
+                cost = 5;
+                break;
+            case UP:
+                cost = 7;
+                break;
+        }
+        if (parent == null)
+            return cost;
+        return cost + parent.pathCost();
     }
 
     public int heuristic() {
@@ -64,5 +81,10 @@ public class Node {
 
     public Node getParent() {
         return parent;
+    }
+
+    @Override
+    public int compareTo(Node o) {
+        return this.pathCost()>o.pathCost() ?1:-1;
     }
 }
