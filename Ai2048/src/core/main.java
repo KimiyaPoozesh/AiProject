@@ -3,8 +3,8 @@ package core;
 import ai.BFS;
 import ai.DFS;
 import ai.IDS;
-
 import ai.UCS;
+
 import model.Board;
 import model.Node;
 
