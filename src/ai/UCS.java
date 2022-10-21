@@ -1,15 +1,14 @@
 package ai;
 
-import model.Movement;
 import model.Node;
 
 import java.util.*;
 
 public class UCS {
-
     public void search(Node startNode) {
-        PriorityQueue<Node> frontier = new PriorityQueue<>();
+        Queue<Node> frontier = new PriorityQueue<>();
         Hashtable<String, Boolean> inFrontier = new Hashtable<>();
+        Hashtable<String, Boolean>  flagdude = new Hashtable<>();
         if (startNode.isGoal()) {
             System.out.println("you win!");
             printResult(startNode, 0);
@@ -19,15 +18,17 @@ public class UCS {
         inFrontier.put(startNode.hash(), true);
         while (!frontier.isEmpty()) {
             Node temp = frontier.poll();
-            if (temp.isGoal()) {
-                printResult(temp, 0);
-                System.out.println("you win !!!");
-                return;
-            }
             inFrontier.remove(temp.hash());
+            flagdude.put(temp.hash(),true);
             ArrayList<Node> children = temp.successor();
             for (Node child : children) {
-                if (!(inFrontier.containsKey(child.hash()))) {
+                if (!(inFrontier.containsKey(child.hash()))&& !(flagdude.containsKey(child.hash()))) {
+                    if (child.isGoal()) {
+                        System.out.println(child.pathCost());
+                        printResult(child, 0);
+                        System.out.println("you win !!!");
+                        return;
+                    }
                     frontier.add(child);
                     inFrontier.put(child.hash(), true);
                 }

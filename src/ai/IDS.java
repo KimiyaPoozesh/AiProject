@@ -1,10 +1,6 @@
 package ai;
-
 import model.Node;
-
 import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.Stack;
 
 public class IDS {
 
