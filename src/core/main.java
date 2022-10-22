@@ -32,13 +32,14 @@ public class main {
         Mapper mapper = new Mapper();
         int[][] cells = mapper.createCells(board, rows, columns);
         Board gameBoard = mapper.createBoard(cells, goalValue, rows, columns);
-        Board.mode = Constants.MODE_NORMAL;
+        Board.mode = Constants.MODE_ADVANCE;
         System.out.println(gameBoard.toString());
 
         Hashtable<String, Boolean> initHash = new Hashtable<>();
         Node start = new Node(gameBoard, null, NONE);
         BFS bfs = new BFS();
 //        UCS dfs = new UCS();
+
 //        dfs.search(start);
 
         bfs.search(start);
