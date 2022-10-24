@@ -2,8 +2,7 @@ package model;
 
 import core.Constants;
 
-import java.util.ArrayList;
-import java.util.Comparator;
+import java.util.*;
 
 public class Node  implements Comparable<Node> {
     Board board;
@@ -62,9 +61,58 @@ public class Node  implements Comparable<Node> {
     }
 
     public int heuristic() {
-        // TODO: 2/16/2022 implement heuristic function
-        return 0;
+
+        if (Board.mode == Constants.MODE_NORMAL) {
+            return this.board.goalValue - getSumOfMaximums();
+        } else {
+            HashMap<Integer, Integer> map = new HashMap<>();
+
+            for (int i = 0; i < this.board.row; i++ ) {
+                for (int j = 0; j < this.board.col; j++) {
+                    int cell = this.board.cells[i][j];
+                    Integer mapCell = map.get(cell);
+                    if (mapCell == null) {
+                        map.put(cell, 1);
+                    } else {
+                        map.put(cell, mapCell + 1);
+                    }
+                }
+            }
+
+            int sum = getSum(map);
+            return sum;
+        }
     }
+
+    private int getSum(HashMap<Integer, Integer> map) {
+        int sum = 0;
+        for (HashMap.Entry<Integer,Integer> entry : map.entrySet()) {
+            int value = entry.getValue();
+
+            if (value % 2 == 0) {
+                sum += value;
+            } else {
+                sum += value - 1;
+            }
+        }
+        return sum;
+    }
+
+    private int getSumOfMaximums() {
+        int currentMax = 0;
+        int currentSecondMax = 0;
+        for (int i = 0; i < this.board.row; i++ ) {
+            for (int j = 0; j < this.board.col; j++) {
+                if (this.board.cells[i][j] > currentMax) {
+                    currentMax = this.board.cells[i][j];
+                } else if (this.board.cells[i][j] < currentMax && this.board.cells[i][j] > currentSecondMax) {
+                    currentSecondMax = this.board.cells[i][j];
+                }
+            }
+        }
+        return currentMax + currentSecondMax;
+    }
+
 
     public String hash() {
         StringBuilder hash = new StringBuilder();
@@ -85,6 +133,6 @@ public class Node  implements Comparable<Node> {
 
     @Override
     public int compareTo(Node o) {
-        return this.pathCost()>o.pathCost() ?1:-1;
+        return this.heuristic() + this.pathCost() > o.heuristic() + o.pathCost() ? 1: -1;
     }
 }
