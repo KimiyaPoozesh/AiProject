@@ -104,8 +104,9 @@ public class Node  implements Comparable<Node> {
         for (int i = 0; i < this.board.row; i++ ) {
             for (int j = 0; j < this.board.col; j++) {
                 if (this.board.cells[i][j] > currentMax) {
+                    currentSecondMax = currentMax;
                     currentMax = this.board.cells[i][j];
-                } else if (this.board.cells[i][j] < currentMax && this.board.cells[i][j] > currentSecondMax) {
+                }else if(this.board.cells[i][j] > currentSecondMax) {
                     currentSecondMax = this.board.cells[i][j];
                 }
             }
@@ -131,8 +132,14 @@ public class Node  implements Comparable<Node> {
         return parent;
     }
 
+//    @Override
+//    public int compareTo(Node o) {
+//        return this.heuristic() + this.pathCost() > o.heuristic() + o.pathCost() ? 1: -1;
+//    }
+
     @Override
     public int compareTo(Node o) {
-        return this.heuristic() + this.pathCost() > o.heuristic() + o.pathCost() ? 1: -1;
+        return this.pathCost() > o.pathCost() ? 1: -1;
     }
+
 }

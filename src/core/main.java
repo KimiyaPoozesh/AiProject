@@ -37,11 +37,12 @@ public class main {
 
         Hashtable<String, Boolean> initHash = new Hashtable<>();
         Node start = new Node(gameBoard, null, NONE);
-        BFS bfs = new BFS();
-//        UCS dfs = new UCS();
 
+        UCS ucs = new UCS();
+        ucs.search(start);
+
+//        DFS dfs = new DFS();
 //        dfs.search(start);
 
-        bfs.search(start);
     }
 }
