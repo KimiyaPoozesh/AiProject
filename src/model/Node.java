@@ -4,7 +4,7 @@ import core.Constants;
 
 import java.util.*;
 
-public class Node  implements Comparable<Node> {
+public class Node implements Comparable<Node> {
     Board board;
     Node parent;
     Movement previousMovement;
@@ -70,6 +70,8 @@ public class Node  implements Comparable<Node> {
             for (int i = 0; i < this.board.row; i++ ) {
                 for (int j = 0; j < this.board.col; j++) {
                     int cell = this.board.cells[i][j];
+                    if (cell == 0)
+                        continue;
                     Integer mapCell = map.get(cell);
                     if (mapCell == null) {
                         map.put(cell, 1);
@@ -82,6 +84,17 @@ public class Node  implements Comparable<Node> {
             int sum = getSum(map);
             return sum;
         }
+    }
+
+    public int heuristic2() {
+        int nonzeros = 0;
+        for (int i = 0; i < this.board.row; i++ ) {
+            for (int j = 0; j < this.board.col; j++) {
+                if (board.cells[i][j] != 0)
+                    nonzeros++;
+            }
+        }
+        return nonzeros;
     }
 
     private int getSum(HashMap<Integer, Integer> map) {
@@ -132,14 +145,22 @@ public class Node  implements Comparable<Node> {
         return parent;
     }
 
-//    @Override
-//    public int compareTo(Node o) {
-//        return this.heuristic() + this.pathCost() > o.heuristic() + o.pathCost() ? 1: -1;
-//    }
-
+    // normal heuristic
     @Override
     public int compareTo(Node o) {
-        return this.pathCost() > o.pathCost() ? 1: -1;
+        return this.heuristic2() + this.pathCost() > o.heuristic2() + o.pathCost() ? 1: -1;
     }
+
+    // advanced heuristic
+//    @Override
+//    public int compareTo(Node o) {
+//        return this.pathCost() + this.heuristic2() > o.pathCost() + o.heuristic2() ? 1: -1;
+//    }
+
+    // ucs
+//    @Override
+//    public int compareTo(Node o) {
+//        return this.pathCost() > o.pathCost() ? 1: -1;
+//    }
 
 }
